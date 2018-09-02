@@ -10,7 +10,8 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    var maxSize: CGFloat = 100
+    var addName: String = "appp"
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
