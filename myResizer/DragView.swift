@@ -9,7 +9,7 @@
 import Cocoa
 
 protocol DragViewDelegate {
-    func dragView(didDragFileWith URL: NSURL)
+    func dragView(didDragFileWith URL: NSURL, maxSize: Int, addName: String)
 }
 
 class DragView: NSView {
@@ -24,7 +24,6 @@ class DragView: NSView {
         super.init(coder: coder)
     //    registerForDraggedTypes([NSPasteboard.PasteboardType("NSFilenamesPboardType")])
          registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL])
-//        register(forDraggedTypes: [NSFilenamesPboardType])
 
     }
     
@@ -46,7 +45,7 @@ class DragView: NSView {
         }
         
         if fileTypeIsOk {
-            delegate?.dragView(didDragFileWith: draggedFileURL)
+            delegate?.dragView(didDragFileWith: draggedFileURL, maxSize: 100, addName: "")
         }
         
         

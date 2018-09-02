@@ -164,6 +164,8 @@
                     </view>
                     <connections>
                         <outlet property="dragView" destination="317-nA-P8T" id="Bj3-dp-Xeu"/>
+                        <outlet property="imageNameTextField" destination="hlR-i3-lre" id="1t9-2w-ACu"/>
+                        <outlet property="maxSizeTextField" destination="tum-j1-8oO" id="yvx-hm-FF5"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
