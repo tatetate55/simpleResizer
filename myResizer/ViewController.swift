@@ -11,7 +11,9 @@ import Cocoa
 class ViewController: NSViewController {
 
     @IBOutlet weak var dragView: DragView!
-
+    @IBOutlet weak var maxSizeTextField: NSTextField!
+    @IBOutlet weak var imageNameTextField: NSTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dragView.delegate = self
