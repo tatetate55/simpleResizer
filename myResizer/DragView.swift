@@ -9,7 +9,7 @@
 import Cocoa
 
 protocol DragViewDelegate {
-    func dragView(didDragFileWith URL: NSURL, maxSize: Int, addName: String)
+    func dragView(didDragFileWith URL: NSURL)
 }
 
 class DragView: NSView {
@@ -46,14 +46,14 @@ class DragView: NSView {
         }
         
         if fileTypeIsOk {
-            delegate?.dragView(didDragFileWith: draggedFileURL, maxSize: fromAppDelegate.maxSize, addName: fromAppDelegate.addName)
+            delegate?.dragView(didDragFileWith: draggedFileURL)
         }
         
         
         // 画像をドラッグ＆ドロップで読み込む例
         if let image = NSImage(pasteboard: sender.draggingPasteboard()) {
             // ここで画像の処理を行う
-            let newImage: NSImage? = resize(sourceImage:image, newMaxSize: CGFloat(fromAppDelegate.maxSize))
+            let newImage: NSImage? = resize(sourceImage:image, newMaxSize: fromAppDelegate.maxSize)
 
             let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + fromAppDelegate.addName  + ".jpg"
             let dirUrl = draggedFileURL.deletingLastPathComponent

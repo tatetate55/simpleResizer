@@ -10,7 +10,7 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    var maxSize: Int = 100
+    var maxSize: CGFloat = 100
     var addName: String = "appp"
 
 
