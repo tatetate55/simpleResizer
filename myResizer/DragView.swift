@@ -15,6 +15,9 @@ protocol DragViewDelegate {
 class DragView: NSView {
     
     var delegate: DragViewDelegate?
+    let fromAppDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
+    
+
     
     //1
     private var fileTypeIsOk = false
@@ -22,9 +25,7 @@ class DragView: NSView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    //    registerForDraggedTypes([NSPasteboard.PasteboardType("NSFilenamesPboardType")])
          registerForDraggedTypes([NSPasteboard.PasteboardType.fileURL])
-
     }
     
     //2
@@ -45,16 +46,16 @@ class DragView: NSView {
         }
         
         if fileTypeIsOk {
-            delegate?.dragView(didDragFileWith: draggedFileURL, maxSize: 100, addName: "")
+            delegate?.dragView(didDragFileWith: draggedFileURL, maxSize: fromAppDelegate.maxSize, addName: fromAppDelegate.addName)
         }
         
         
         // 画像をドラッグ＆ドロップで読み込む例
         if let image = NSImage(pasteboard: sender.draggingPasteboard()) {
             // ここで画像の処理を行う
-            let newImage: NSImage? = resize(sourceImage:image, newMaxSize: 100)
+            let newImage: NSImage? = resize(sourceImage:image, newMaxSize: CGFloat(fromAppDelegate.maxSize))
 
-            let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + "2.jpg"
+            let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + fromAppDelegate.addName  + ".jpg"
             let dirUrl = draggedFileURL.deletingLastPathComponent
             let destinationURL = dirUrl?.appendingPathComponent(hoge)
             

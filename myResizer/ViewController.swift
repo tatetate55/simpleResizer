@@ -21,7 +21,7 @@ class ViewController: NSViewController {
 }
 
 extension ViewController: DragViewDelegate {
-    func dragView(didDragFileWith imageURL: NSURL, maxSize: Int = 100, addName: String = "2") {
+    func dragView(didDragFileWith imageURL: NSURL, maxSize: Int, addName: String) {
         
     }
 }
