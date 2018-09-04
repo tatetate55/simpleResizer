@@ -17,8 +17,6 @@ class DragView: NSView {
     var delegate: DragViewDelegate?
     let fromAppDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
     
-
-    
     //1
     private var fileTypeIsOk = false
     private var acceptedFileExtensions = ["jpg"]
