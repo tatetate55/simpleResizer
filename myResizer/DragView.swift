@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import RealmSwift
 
 protocol DragViewDelegate {
     func dragView(didDragFileWith URL: NSURL)
@@ -16,6 +17,11 @@ class DragView: NSView {
     
     var delegate: DragViewDelegate?
     let fromAppDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
+    // realm set
+    var settingData = SettingData()
+    let realm = try! Realm()
+    var settingArray = try! Realm().objects(SettingData.self).sorted(byKeyPath: "id", ascending: false)
+
     
     //1
     private var fileTypeIsOk = false
@@ -51,9 +57,9 @@ class DragView: NSView {
         // 画像をドラッグ＆ドロップで読み込む例
         if let image = NSImage(pasteboard: sender.draggingPasteboard()) {
             // ここで画像の処理を行う
-            let newImage: NSImage? = resize(sourceImage:image, newMaxSize: fromAppDelegate.maxSize)
+            let newImage: NSImage? = resize(sourceImage:image, newMaxSize: settingArray[0].maxSize)
 
-            let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + fromAppDelegate.addName  + ".jpg"
+            let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + settingArray[0].addFileName  + ".jpg"
             let dirUrl = draggedFileURL.deletingLastPathComponent
             let destinationURL = dirUrl?.appendingPathComponent(hoge)
             

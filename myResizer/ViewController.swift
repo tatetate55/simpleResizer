@@ -14,16 +14,14 @@ class ViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var dragView: DragView!
     @IBOutlet weak var maxSizeTextField: NSTextField!
     @IBOutlet weak var imageNameTextField: NSTextField!
+
+    // realm set
     var settingData = SettingData()
+    let realm = try! Realm()
+    var settingArray = try! Realm().objects(SettingData.self).sorted(byKeyPath: "id", ascending: false)
     
-    let fromAppDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
+    //  let fromAppDelegate: AppDelegate = NSApplication.shared.delegate as! AppDelegate
     
-    // Realmインスタンスを取得する
-    let realm = try! Realm()  // ←追加
-    
-    // DB内のタスクが格納されるリスト
-    // 以降内容をアップデートするとリスト内は自動的に更新される。
-    var settingArray = try! Realm().objects(SettingData.self).sorted(byKeyPath: "id", ascending: false)  // ←追加
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +40,8 @@ class ViewController: NSViewController, NSTextFieldDelegate {
     override func controlTextDidChange(_ obj: Notification) {
 
         if imageNameTextField.stringValue != "" {
-            fromAppDelegate.addName = imageNameTextField.stringValue
-
             try! realm.write {
-                settingData.addFileName = fromAppDelegate.addName
+                settingData.addFileName = imageNameTextField.stringValue
                 self.realm.add(self.settingData, update: true)
             }
 
@@ -55,7 +51,6 @@ class ViewController: NSViewController, NSTextFieldDelegate {
                 settingData.maxSize = CGFloat(truncating: n)
                 self.realm.add(self.settingData, update: true)
             }
-            fromAppDelegate.maxSize = CGFloat(truncating: n)
         }
     }
 
