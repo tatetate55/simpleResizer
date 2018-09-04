@@ -56,15 +56,17 @@ class DragView: NSView {
         
         // 画像をドラッグ＆ドロップで読み込む例
         if let image = NSImage(pasteboard: sender.draggingPasteboard()) {
-            // ここで画像の処理を行う
-            let newImage: NSImage? = resize(sourceImage:image, newMaxSize: settingArray[0].maxSize)
-
-            let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + settingArray[0].addFileName  + ".jpg"
-            let dirUrl = draggedFileURL.deletingLastPathComponent
-            let destinationURL = dirUrl?.appendingPathComponent(hoge)
-            
-            if (newImage?.jpegWrite(to: destinationURL!, options: .atomicWrite))! {
-                //print("File saved")
+            if  settingArray[0].maxSize > 0 || settingArray[0].addFileName  != "" {
+                // ここで画像の処理を行う
+                let newImage: NSImage? = resize(sourceImage:image, newMaxSize: settingArray[0].maxSize/2) //???TODO
+                
+                let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + settingArray[0].addFileName  + ".jpg"
+                let dirUrl = draggedFileURL.deletingLastPathComponent
+                let destinationURL = dirUrl?.appendingPathComponent(hoge)
+                
+                if (newImage?.jpegWrite(to: destinationURL!, options: .atomicWrite))! {
+                    //print("File saved")
+                }
             }
         }
         
@@ -116,7 +118,7 @@ extension DragView { //後でファイルバラす
         
         sourceImage.size = newSize
         
-        NSGraphicsContext.current?.imageInterpolation = .high
+        NSGraphicsContext.current?.imageInterpolation = .medium
         sourceImage.draw(at: NSPoint.zero, from: CGRect(x: 0,y: 0, width: newSize.width, height: newSize.height), operation: NSCompositingOperation.copy, fraction: 1.0)
         newImage.unlockFocus()
         
