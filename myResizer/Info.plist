@@ -26,6 +26,8 @@
 	<string>Copyright © 2018年 KAMAKURAKAZUHIRO. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.productivity</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
