@@ -60,7 +60,7 @@ class DragView: NSView {
                 // ここで画像の処理を行う
                 let newImage: NSImage? = resize(sourceImage:image, newMaxSize: settingArray[0].maxSize/2) //???TODO
                 
-                let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + settingArray[0].addFileName  + ".jpg"
+                let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + settingArray[0].addFileName  + "." + (draggedFileURL.absoluteString?.pathExtension)!
                 let dirUrl = draggedFileURL.deletingLastPathComponent
                 let destinationURL = dirUrl?.appendingPathComponent(hoge)
                 
@@ -128,33 +128,34 @@ extension DragView { //後でファイルバラす
 }
 
 extension NSImage {
-    func save(as fileName: String, fileType: NSBitmapImageRep.FileType = .jpeg, at directory: URL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)) -> Bool {
-        guard let tiffRepresentation = tiffRepresentation, directory.hasDirectoryPath, !fileName.isEmpty else { return false }
-        do {
-            switch fileType {
-            case .jpeg:
-                try NSBitmapImageRep(data: tiffRepresentation)?
-                    .representation(using: fileType, properties: [:])?
-                    .write(to: directory.appendingPathComponent(fileName).appendingPathExtension(".JPEG"))
-            case .png:
-                try NSBitmapImageRep(data: tiffRepresentation)?
-                    .representation(using: fileType, properties: [:])?
-                    .write(to: directory.appendingPathComponent(fileName).appendingPathExtension(".png"))
-            default:
-                return false
-            }
-
-            return true
-        } catch {
-            print(error)
-            return false
-        }
-    }
+//    func save(as fileName: String, fileType: NSBitmapImageRep.FileType = .jpeg, at directory: URL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)) -> Bool {
+//        guard let tiffRepresentation = tiffRepresentation, directory.hasDirectoryPath, !fileName.isEmpty else { return false }
+//        do {
+//            switch fileType {
+//            case .jpeg:
+//                try NSBitmapImageRep(data: tiffRepresentation)?
+//                    .representation(using: fileType, properties: [:])?
+//                    .write(to: directory.appendingPathComponent(fileName).appendingPathExtension(".JPEG"))
+////            case .png:
+////                try NSBitmapImageRep(data: tiffRepresentation)?
+////                    .representation(using: fileType, properties: [:])?
+////                    .write(to: directory.appendingPathComponent(fileName).appendingPathExtension(".png"))
+//            default:
+//                return false
+//            }
+//
+//            return true
+//        } catch {
+//            print(error)
+//            return false
+//        }
+//    }
     
     var jpegData: Data? {
         guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation) else { return nil }
         return bitmapImage.representation(using: .jpeg, properties: [:])
     }
+    
     func jpegWrite(to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
         do {
             try jpegData?.write(to: url, options: options)
