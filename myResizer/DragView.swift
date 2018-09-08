@@ -25,7 +25,7 @@ class DragView: NSView {
     
     //1
     private var fileTypeIsOk = false
-    private var acceptedFileExtensions = ["jpg"]
+    private var acceptedFileExtensions = ["jpg","jpeg","png"]
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -131,9 +131,19 @@ extension NSImage {
     func save(as fileName: String, fileType: NSBitmapImageRep.FileType = .jpeg, at directory: URL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)) -> Bool {
         guard let tiffRepresentation = tiffRepresentation, directory.hasDirectoryPath, !fileName.isEmpty else { return false }
         do {
-            try NSBitmapImageRep(data: tiffRepresentation)?
-                .representation(using: fileType, properties: [:])?
-                .write(to: directory.appendingPathComponent(fileName).appendingPathExtension(".JPEG"))
+            switch fileType {
+            case .jpeg:
+                try NSBitmapImageRep(data: tiffRepresentation)?
+                    .representation(using: fileType, properties: [:])?
+                    .write(to: directory.appendingPathComponent(fileName).appendingPathExtension(".JPEG"))
+            case .png:
+                try NSBitmapImageRep(data: tiffRepresentation)?
+                    .representation(using: fileType, properties: [:])?
+                    .write(to: directory.appendingPathComponent(fileName).appendingPathExtension(".png"))
+            default:
+                return false
+            }
+
             return true
         } catch {
             print(error)
