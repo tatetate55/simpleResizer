@@ -55,7 +55,7 @@ class DragView: NSView {
         
         
         // 画像をドラッグ＆ドロップで読み込む例
-        if let image = NSImage(pasteboard: sender.draggingPasteboard()) {
+        if let image = NSImage(pasteboard: sender.draggingPasteboard) {
             if  settingArray[0].maxSize > 0 || settingArray[0].addFileName  != "" {
                 // ここで画像の処理を行う
                 let newImage: NSImage? = resize(sourceImage:image, newMaxSize: settingArray[0].maxSize/2) //???TODO
@@ -98,7 +98,7 @@ class DragView: NSView {
 extension NSDraggingInfo {
     var draggedFileURL: NSURL? {
         //let filenames = draggingPasteboard().propertyList(forType: NSPasteboard.PasteboardType.fileURL) as? [String]
-        let filenames = draggingPasteboard().propertyList(forType: NSPasteboard.PasteboardType(rawValue: "NSFilenamesPboardType")) as? [String]
+        let filenames = draggingPasteboard.propertyList(forType: NSPasteboard.PasteboardType(rawValue: "NSFilenamesPboardType")) as? [String]
         let path = filenames?.first
         
         return path.map(NSURL.init)
@@ -133,6 +133,8 @@ extension DragView { //後でファイルバラす
         
         return newImage
     }
+    
+
     
 }
 
