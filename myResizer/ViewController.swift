@@ -44,7 +44,7 @@ class ViewController: NSViewController, NSTextFieldDelegate {
         
     }
     
-    override func controlTextDidChange(_ obj: Notification) {
+    func controlTextDidChange(_ obj: Notification) {
 
       //  if imageNameTextField.stringValue != "" {
             try! realm.write {
