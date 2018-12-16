@@ -25,7 +25,7 @@ class DragView: NSView {
     
     //1
     private var fileTypeIsOk = false
-    private var acceptedFileExtensions = ["jpg","jpeg","png"]
+    private var acceptedFileExtensions = ["jpg","jpeg","png","heic"]
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -60,11 +60,13 @@ class DragView: NSView {
                 // ここで画像の処理を行う
                 let newImage: NSImage? = resize(sourceImage:image, newMaxSize: settingArray[0].maxSize/2) //???TODO
                 
-                let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + settingArray[0].addFileName  + "." + (draggedFileURL.absoluteString?.pathExtension)!
+                var extensionName = (draggedFileURL.absoluteString?.pathExtension)!
+                if extensionName == "HEIC" { extensionName = "jpg" }
+                let hoge = (draggedFileURL.deletingPathExtension?.lastPathComponent)! + settingArray[0].addFileName  + "." + extensionName
                 let dirUrl = draggedFileURL.deletingLastPathComponent
                 let destinationURL = dirUrl?.appendingPathComponent(hoge)
                 if let extensionString = draggedFileURL.absoluteString?.pathExtension {
-                    if extensionString == "jpg" {
+                    if extensionString == "jpg" || extensionString == "heic" {
                         if (newImage?.jpegWrite(to: destinationURL!, options: .atomicWrite))! {
                             //print("File saved")
                         }

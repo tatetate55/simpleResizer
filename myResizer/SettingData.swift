@@ -24,20 +24,4 @@ class SettingData: Object {
     override static func primaryKey() -> String? {
         return "id"
     }
-    
-//    public required init() {
-//        super.init()
-//    }
-////    init() {
-//        self.id = 0
-//        self.maxSize = 1000
-//        self.addFileName = "hoge"
-//        self.maxDataSize = 100000
-//        self.copyright = "cc"
-//    }
-//
-//    convenience init(id: Int) {
-//        self.id = 0
-//        self.init()
-//    }
 }
