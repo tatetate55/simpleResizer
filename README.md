@@ -2,7 +2,7 @@
 
 simpleResizer is mac's resizing application.
 
-# dwonload 
+# download 
 
 page
 
