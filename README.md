@@ -2,7 +2,7 @@
 
 simpleResizer is mac's resizing application.
 
-
+![](https://cdn-ak.f.st-hatena.com/images/fotolife/r/ruteinyoyokk121/20180915/20180915160545.gif)
 
 
 # Usage 
@@ -15,6 +15,6 @@ It can only drug image to window.
 Input integer size
 
 - prefix
-if you don't want to overwrite original image, you can file prefix.
+If you don't want to overwrite original image, you can file prefix new file.
 
 
