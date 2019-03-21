@@ -2,9 +2,8 @@
 
 simpleResizer is mac's resizing application.
 
-# download 
 
-page
+
 
 # Usage 
 
